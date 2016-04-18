@@ -18,13 +18,13 @@ function load_config {
 function start_beacon {
   load_config
   echo "Launching virtual iBeacon..."
-  hciconfig hci0 down
-  #hciconfig hci0 up
+  hciconfig $BLUETOOTH_DEVICE down
   hciconfig $BLUETOOTH_DEVICE up
   hciconfig $BLUETOOTH_DEVICE noleadv
-  hciconfig $BLUETOOTH_DEVICE leadv 0
-  hcitool -i hci0 cmd 0x08 0x0008 1e 02 01 1a 1a ff 4c 00 02 15 $UUID $MAJOR $MINOR $POWER 00 00 00 00 00 00 00 00 00 00 00 00 00
-  #hciconfig $BLUETOOTH_DEVICE leadv 0
+  hciconfig $BLUETOOTH_DEVICE noscan
+  hciconfig $BLUETOOTH_DEVICE leadv 3
+#  hcitool -i hci0 cmd 0x08 0x0008 1e 02 01 1a 1a ff 4c 00 02 15 $UUID $MAJOR $MINOR $POWER 00 00 00 00 00 00 00 00 00 00 00 00 00
+  hcitool -i hci0 cmd 0x08 0x0008 1e 02 01 1a 1a ff 4c 00 02 15 $UUID $MAJOR $MINOR $POWER
   echo "Complete"  
   echo ""
   echo "UUID: $UUID"
